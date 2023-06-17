@@ -11,9 +11,19 @@ Die eigentliche Quelle der Lösung ist: https://access.redhat.com/discussions/69
 
 == Schritt 1: Kopieren der notwendigen Dateien
 
-In Windows findet man in seinem Benutzerprofil unter "C:/Users/<Benutzername>" einen Ordner ".kube". Dort liegt eine "config"-Datei und ein "cache"-Ordner. Diese beiden Dinge einmal markieren und kopieren.
+In Windows findet man in seinem Benutzerprofil unter "C:/Users/<Benutzername>" einen Ordner ".kube". Dort liegt eine "config"-Datei und ein "cache"-Ordner.
 
 image:pictures/kube-windows.png["Der .kube-Ordner in Windows"]
+
+Diese beiden Dateien müssen nun in die WSL kopiert werden. Wenn sich im $HOME-Verzeichnis der WSL bereits ein ".kube"-Ordner befindet, dann liegen dort bereits eine "config"-Datei und ein "cache"-Ordner, die man zunächst löschen sollte und dann die entsprechenden Dateien aus dem obigen Windows-Verzeichnis kopiert. Liegt dort noch kein ".kube"-Ordner, dann einfach den gesamten Ordner von Windows in die WSL kopieren.
+
+Dazu kann man einfach den Windows-Explorer nutzen. Unter Windows 11 sind die Dateien der WSL direkt verfügbar:
+
+image:pictures/explorer-wsl.png["WSL im Explorer von Windows 11"]
+
+Aber auch unter Windows 10 ist es einfach, aus dem Windows-Explorer heraus auf die WSL zuzugreifen. Dazu einfach in die Pfadleiste im Explorer klicken und dort "\\wsl$" eingeben und <Enter> drücken:
+
+image:pictures/win10-wsl.png["WSL im Explorer von Windows 10"]
 
 
 
