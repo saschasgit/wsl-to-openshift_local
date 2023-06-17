@@ -37,9 +37,43 @@ image:pictures/win-hosts.png["Windows Hosts-Datei"]
 
 Zusätzlich benötigen wir hier die IP-Adresse des Windows-Rechners. In der Regel ist das 192.168.x.y.
 
-Die Einträge der Windows "Hosts"-Datei müssen der "Hosts"-Datei der WSL, welche dort in "/etc/hosts" liegt, hinzugefügt werden:
+Die Einträge der Windows "Hosts"-Datei müssen der "Hosts"-Datei der WSL, welche dort in "/etc/hosts" liegt, hinzugefügt werden und die IP am Anfang (127.0.0.1) durch die IP des Windows-Rechners ersetzt werden:
 
 image:pictures/wsl-hosts.png["WSL Hosts-Datei"]
+
+== Schritt 4: Einrichten der Forward-Rules unter Windows
+
+Als nächstes benötigen wir ein Port-Forwarding unter Windows. Als erstes kann man sich einmal anschauen, ob da bereits etwas eingerichtet ist. Dazu öffnet man eine Powershell als Administrator. Vermutlich ist nichts eingerichtet, so dass der folgende Befehl auch nichts ausgibt:
+
+[source]
+----
+netsh interface portproxy show v4tov4
+----
+
+Jetzt fügen wir zwei Forwards hinzu:
+
+(Die hier verwendete "connectaddress" natürlich durch die IP-Adresse des eigenen Windows-Rechners ersetzen.)
+
+[source]
+----
+netsh interface portproxy add v4tov4 listenaddress=192.168.178.10 listenport=9000 connectaddress=127.0.0.1 connectport=6443
+netsh interface portproxy add v4tov4 listenaddress=192.168.178.10 listenport=9001 connectaddress=127.0.0.1 connectport=443
+----
+
+Schauen wir uns nun noch einmal die jetzt eingerichteten Forwards an, steht dort etwas wie:
+
+[source]
+----
+PS C:\WINDOWS\system32> netsh interface portproxy show v4tov4
+
+Abfragen auf ipv4:             Verbinden mit ipv4:
+
+Adresse         Anschluss   Adresse         Anschluss
+--------------- ----------  --------------- ----------
+192.168.178.10  9000        127.0.0.1       6443
+192.168.178.10  9001        127.0.0.1       443
+----
+
 
 CAUTION: Das Problem lauert aber an einer anderen Stelle. Wenn wir nur eine GitOps-Instanz haben, dann haben wir auch nur einen dahinterliegenden GitOps-Serviceaccount mit den entsprechenden Berechtigungen in dem Namespace. Und wenn ein Developerteam GitOps verwendet, dann werden die Ressourcen nicht mit den Berechtigungen des Developers, sondern mit den Berechtigungen des GitOps-Serviceaccounts erstellt. Hat also der Clusteradmin die Möglichkeit, über GitOps eine Networkpolicy auszurollen, dann hat der Developer das in seinem Namespace ebenso.
 
