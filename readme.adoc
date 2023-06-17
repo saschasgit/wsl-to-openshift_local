@@ -25,7 +25,21 @@ Aber auch unter Windows 10 ist es einfach, aus dem Windows-Explorer heraus auf d
 
 image:pictures/win10-wsl.png["WSL im Explorer von Windows 10"]
 
+== Schritt 2: Anpassen der "config"-Datei
 
+Nachdem die "config"-Datei nun in der WSL ist, diese einmal mit z.B. "sudo vi ~/.kube/config" öffnen und dort überall den Port 6443 in Port 9000 ändern. Profis können natürlich auch "sed" nehmen.
+
+== Schritt 3: Anpassen der WSL "hosts"-Datei
+
+Im Windows-Ordner findet man unter "System32\drivers\etc" die "hosts"-Datei. Hier findet man eine oder mehrere Zeilen, welche sich auf OpenShift beziehen:
+
+image:pictures/win-hosts.png["Windows Hosts-Datei"]
+
+Zusätzlich benötigen wir hier die IP-Adresse des Windows-Rechners. In der Regel ist das 192.168.x.y.
+
+Die Einträge der Windows "Hosts"-Datei müssen der "Hosts"-Datei der WSL, welche dort in "/etc/hosts" liegt, hinzugefügt werden:
+
+image:pictures/wsl-hosts.png["WSL Hosts-Datei"]
 
 CAUTION: Das Problem lauert aber an einer anderen Stelle. Wenn wir nur eine GitOps-Instanz haben, dann haben wir auch nur einen dahinterliegenden GitOps-Serviceaccount mit den entsprechenden Berechtigungen in dem Namespace. Und wenn ein Developerteam GitOps verwendet, dann werden die Ressourcen nicht mit den Berechtigungen des Developers, sondern mit den Berechtigungen des GitOps-Serviceaccounts erstellt. Hat also der Clusteradmin die Möglichkeit, über GitOps eine Networkpolicy auszurollen, dann hat der Developer das in seinem Namespace ebenso.
 
