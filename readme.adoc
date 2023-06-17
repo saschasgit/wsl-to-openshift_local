@@ -57,6 +57,10 @@ Jetzt fügen wir zwei Forwards hinzu:
 [source]
 ----
 netsh interface portproxy add v4tov4 listenaddress=192.168.178.10 listenport=9000 connectaddress=127.0.0.1 connectport=6443
+----
+
+[source]
+----
 netsh interface portproxy add v4tov4 listenaddress=192.168.178.10 listenport=9001 connectaddress=127.0.0.1 connectport=443
 ----
 
