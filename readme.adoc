@@ -25,6 +25,8 @@ Aber auch unter Windows 10 ist es einfach, aus dem Windows-Explorer heraus auf d
 
 image:pictures/win10-wsl.png["WSL im Explorer von Windows 10"]
 
+(Sollte der Zugriff nicht funktionieren, dann zunächst eine WSL öffnen, so dass diese läuft.)
+
 == Schritt 2: Anpassen der "config"-Datei
 
 Nachdem die "config"-Datei nun in der WSL ist, diese einmal mit z.B. "sudo vi ~/.kube/config" öffnen und dort überall den Port 6443 in Port 9000 ändern. Profis können natürlich auch "sed" nehmen.
