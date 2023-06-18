@@ -43,6 +43,14 @@ Die Einträge der Windows "Hosts"-Datei müssen der "Hosts"-Datei der WSL, welch
 
 image:pictures/wsl-hosts.png["WSL Hosts-Datei"]
 
+Windows dreht die Konfiguration der WSL "hosts" Datei gerne zurück. Daher sollte man keine Änderung mehr zulassen:
+
+[source]
+----
+sudo chmod -w /etc/hosts
+----
+
+
 == Schritt 4: Einrichten der Forward-Rules unter Windows
 
 Als nächstes benötigen wir ein Port-Forwarding unter Windows. Als erstes kann man sich einmal anschauen, ob da bereits etwas eingerichtet ist. Dazu öffnet man eine Powershell als Administrator. Vermutlich ist nichts eingerichtet, so dass der folgende Befehl auch nichts ausgibt:
@@ -78,6 +86,18 @@ Adresse         Anschluss   Adresse         Anschluss
 --------------- ----------  --------------- ----------
 192.168.178.10  9000        127.0.0.1       6443
 192.168.178.10  9001        127.0.0.1       443
+----
+
+Ich hatte den Fall, dass nach einem Neustart der Zugriff nicht klappte, sondern die Meldung "error: dial tcp 192.168.178.10:9000: i/o timeout - verify you have provided the correct host and port and that the server is currently running." erschien. Es lag aus welchen Gründen auch immer an diesen beiden Regeln, die dann gelöscht und neu erstellt werden mussten. Löschen der Regeln mit:
+
+[source]
+----
+netsh interface portproxy delete v4tov4 listenaddress=192.168.178.10 listenport=9000
+----
+
+[source]
+----
+netsh interface portproxy delete v4tov4 listenaddress=192.168.178.10 listenport=9001
 ----
 
 == Schritt 5: Einrichten einer Firewall-Regel
