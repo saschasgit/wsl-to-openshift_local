@@ -43,13 +43,7 @@ Die Einträge der Windows "Hosts"-Datei müssen der "Hosts"-Datei der WSL, welch
 
 image:pictures/wsl-hosts.png["WSL Hosts-Datei"]
 
-Windows dreht die Konfiguration der WSL "hosts" Datei gerne zurück. Daher sollte man keine Änderung mehr zulassen:
-
-[source]
-----
-sudo chmod -w /etc/hosts
-----
-
+Windows dreht die Konfiguration der WSL "hosts" Datei gerne zurück, so dass dort als IP wieder die 127.0.0.1 steht. Ich forsche noch, wie man dies verhindert.
 
 == Schritt 4: Einrichten der Forward-Rules unter Windows
 
